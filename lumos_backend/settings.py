@@ -68,7 +68,7 @@ ASGI_APPLICATION = "lumos_backend.asgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": "ghorkhoje",
+        "NAME": "lumos_db",
         "USER": "postgres",
         "PASSWORD": "postgres",
         "HOST": "db",
@@ -98,7 +98,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-AUTH_USER_MODEL = "user.User"
 
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = "smtp.gmail.com"

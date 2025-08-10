@@ -29,7 +29,7 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     environment:
-      - POSTGRES_DB=lumos
+      - POSTGRES_DB=lumos_db
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
     ports:
