@@ -1,0 +1,62 @@
+services:
+  redis:
+    image: redis:5
+    container_name: redis_lumos
+    volumes:
+      - redisdata:/data
+    networks:
+      - lumos-network
+
+  web:
+    build: .
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+      - "8765:9876" # host:container
+    env_file:
+      - .env
+    networks:
+      - lumos-network
+    # command: >
+    #   bash -c "python ghorkhoje/manage.py runserver 0.0.0.0:8000"
+    command: >
+      bash -c "python manage.py runserver 0.0.0.0:8000"
+
+  # Local development database
+  db:
+    image: postgres:13
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=lumos
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - lumos-network
+
+  adminer:
+    image: adminer
+    ports:
+      - "8080:8080"
+    environment:
+      - ADMINER_DEFAULT_SERVER=db
+    depends_on:
+      - db
+    networks:
+      - lumos-network
+
+networks:
+  lumos-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
+  redisdata:
