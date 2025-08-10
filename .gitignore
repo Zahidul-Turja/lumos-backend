@@ -18,5 +18,4 @@ well-known/*
 rnd/*
 *.log
 *.pot
-*.mo
 *.db
