@@ -16,3 +16,7 @@ well-known/*
 .sqlite
 *.sqlite3
 rnd/*
+*.log
+*.pot
+*.mo
+*.db
