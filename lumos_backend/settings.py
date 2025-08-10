@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "lumos_backend",
+    "user_management",
 ]
 
 MIDDLEWARE = [
@@ -97,6 +98,8 @@ AUTH_PASSWORD_VALIDATORS = [
         "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
     },
 ]
+
+AUTH_USER_MODEL = "user_management.User"
 
 
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
