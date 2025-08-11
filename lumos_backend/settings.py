@@ -32,6 +32,9 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "lumos_backend",
     "user_management",
+    "rest_framework",
+    "rest_framework_simplejwt",
+    "corsheaders",
 ]
 
 MIDDLEWARE = [
@@ -109,6 +112,10 @@ EMAIL_USE_TLS = True
 
 EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER", "turjazahidul@gmail.com")
 EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD", "")
+
+# Google OAuth settings
+GOOGLE_CLIENT_ID = os.environ.get("GOOGLE_CLIENT_ID", "")
+GOOGLE_CLIENT_SECRET = os.environ.get("GOOGLE_CLIENT_SECRET", "")
 
 REST_USE_JWT = True
 REST_FRAMEWORK = {
