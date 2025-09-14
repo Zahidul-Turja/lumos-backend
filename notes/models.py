@@ -26,19 +26,6 @@ class Technology(models.Model):
         db_table = "technologies"
 
 
-class Link(models.Model):
-    name = models.CharField(max_length=100)
-    url = models.URLField()
-    icon = models.ImageField(upload_to="link_icons/", blank=True, null=True)
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        verbose_name_plural = "Links"
-        db_table = "links"
-
-
 class Project(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField(blank=True, null=True)
@@ -51,7 +38,6 @@ class Project(models.Model):
         Technology, related_name="projects", blank=True
     )
     tags = models.ManyToManyField(Tag, related_name="projects", blank=True)
-    links = models.ManyToManyField(Link, related_name="projects", blank=True)
 
     priority = models.IntegerField(default=0)
 
@@ -65,6 +51,20 @@ class Project(models.Model):
         verbose_name_plural = "Projects"
         db_table = "projects"
         ordering = ["-priority", "-created_at"]
+
+
+class Link(models.Model):
+    project = models.ForeignKey(Project, related_name="links", on_delete=models.CASCADE)
+    name = models.CharField(max_length=100)
+    url = models.URLField()
+    icon = models.ImageField(upload_to="link_icons/", blank=True, null=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name_plural = "Links"
+        db_table = "links"
 
 
 class ProjectImage(models.Model):
