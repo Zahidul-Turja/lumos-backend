@@ -8,11 +8,13 @@ from rest_framework_simplejwt.views import (
     TokenVerifyView,
 )
 from user_management.urls import user_urlpatterns
+from notes.urls import notes_url_patterns
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     # API endpoints
     path("api/v1/users/", include(user_urlpatterns)),
+    path("api/v1/notes/", include(notes_url_patterns)),
     # JWT token endpoints
     path(
         "api/v1/auth/token/refresh/", TokenRefreshView.as_view(), name="token_refresh"

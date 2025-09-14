@@ -5,6 +5,7 @@ from django.db import models
 class Tag(models.Model):
     name = models.CharField(max_length=50, unique=True)
     icon = models.ImageField(upload_to="tag_icons/", blank=True, null=True)
+    color = models.CharField(max_length=7, blank=True, null=True)  # Hex color code
 
     def __str__(self):
         return self.name
