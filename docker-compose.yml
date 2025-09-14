@@ -18,8 +18,6 @@ services:
       - .env
     networks:
       - lumos-network
-    # command: >
-    #   bash -c "python ghorkhoje/manage.py runserver 0.0.0.0:8000"
     command: >
       bash -c "python manage.py runserver 0.0.0.0:8000"
 

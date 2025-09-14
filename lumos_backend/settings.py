@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     "corsheaders",
     "lumos_backend",
     "user_management",
+    "notes",
     "rest_framework",
     "rest_framework_simplejwt",
 ]
