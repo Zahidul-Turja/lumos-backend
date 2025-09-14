@@ -65,7 +65,7 @@ class Link(models.Model):
 
     class Meta:
         verbose_name_plural = "Links"
-        db_table = "links"
+        db_table = "project_links"
 
 
 class ProjectImage(models.Model):
