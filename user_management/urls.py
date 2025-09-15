@@ -1,5 +1,6 @@
 from django.urls import path
 from user_management.views import (
+    LoginView,
     RequestMagicLinkView,
     VerifyMagicLinkView,
     GoogleAuthView,
@@ -9,6 +10,7 @@ from user_management.views import (
 )
 
 user_urlpatterns = [
+    path("auth/login/", LoginView.as_view(), name="classic_login"),
     path(
         "auth/magic-link/request/",
         RequestMagicLinkView.as_view(),

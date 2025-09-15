@@ -25,6 +25,57 @@ User = get_user_model()
 logger = logging.getLogger(__name__)
 
 
+class LoginView(APIView):
+    permission_classes = [AllowAny]
+
+    def post(self, request):
+        email = request.data.get("email")
+        password = request.data.get("password")
+
+        if not email or not password:
+            return Response(
+                {
+                    "success": False,
+                    "message": "Email and password are required.",
+                },
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        try:
+            user = User.objects.get(email__iexact=email)
+            if not user.check_password(password):
+                return Response(
+                    {
+                        "success": False,
+                        "message": "Invalid email or password.",
+                    },
+                    status=status.HTTP_401_UNAUTHORIZED,
+                )
+        except User.DoesNotExist:
+            return Response(
+                {
+                    "success": False,
+                    "message": "Invalid email or password.",
+                },
+                status=status.HTTP_401_UNAUTHORIZED,
+            )
+
+        refresh = RefreshToken.for_user(user)
+        serializer = UserSerializer(user, context={"request": request})
+        return Response(
+            {
+                "success": True,
+                "message": f"Welcome back, {user.first_name}!",
+                "data": {
+                    "refresh": str(refresh),
+                    "access": str(refresh.access_token),
+                    "user": serializer.data,
+                },
+            },
+            status=status.HTTP_200_OK,
+        )
+
+
 class UserProfileView(generics.RetrieveUpdateAPIView):
     serializer_class = UserSerializer
     permission_classes = [IsAuthenticated]
