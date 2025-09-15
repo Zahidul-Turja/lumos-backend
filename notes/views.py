@@ -10,6 +10,7 @@ from notes.serializers import (
     TechnologySerializer,
     ProjectListSerializer,
     ProjectDetailSerializer,
+    ProjectCreateSerializer,
 )
 
 
@@ -78,12 +79,23 @@ class ProjectCreateView(APIView):
     permission_classes = [IsAuthenticated]
 
     def post(self, request):
+        serializer = ProjectCreateSerializer(data=request.data)
+        if serializer.is_valid():
+            project = serializer.save()
+            return Response(
+                {
+                    "message": "Project created successfully",
+                    "project": ProjectCreateSerializer(project).data,
+                },
+                status=status.HTTP_201_CREATED,
+            )
         return Response(
             {
-                "success": True,
-                "message": "Currently under development",
+                "success": False,
+                "message": "Project creation failed",
+                "data": serializer.errors,
             },
-            status=status.HTTP_200_OK,
+            status=status.HTTP_400_BAD_REQUEST,
         )
 
 
