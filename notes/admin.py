@@ -24,3 +24,4 @@ class ProjectAdmin(admin.ModelAdmin):
 admin.site.register(Project, ProjectAdmin)
 admin.site.register(Tag)
 admin.site.register(Technology)
+admin.site.register(Link)
