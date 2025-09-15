@@ -1,7 +1,7 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.pagination import PageNumberPagination
 
 from notes.models import Tag, Technology, Project
@@ -69,6 +69,19 @@ class ProjectsListView(APIView):
                 "success": True,
                 "message": "Projects fetched successfully",
                 "data": pagination.get_paginated_response(serializer.data).data,
+            },
+            status=status.HTTP_200_OK,
+        )
+
+
+class ProjectCreateView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        return Response(
+            {
+                "success": True,
+                "message": "Currently under development",
             },
             status=status.HTTP_200_OK,
         )

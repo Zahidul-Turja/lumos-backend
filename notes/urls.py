@@ -7,6 +7,7 @@ notes_url_patterns = [
         "technologies/", views.TechnologiesListView.as_view(), name="technologies-list"
     ),
     path("projects/", views.ProjectsListView.as_view(), name="projects-list"),
+    path("projects/create/", views.ProjectCreateView.as_view(), name="project-create"),
     path(
         "projects/<int:pk>/", views.ProjectDetailView.as_view(), name="project-detail"
     ),
